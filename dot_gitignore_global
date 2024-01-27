@@ -1,0 +1,18 @@
+# editor artifacts
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# toolchain log files
+*.log
+*.tmp
+*.o
+*.obj
+
+# OS files
+.DS_Store
+ehthumbs.db
+Thumbs.db
