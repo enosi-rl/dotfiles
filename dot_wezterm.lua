@@ -33,6 +33,10 @@ config.colors = {
 }
 
 config.window_decorations = "RESIZE"
+config.initial_rows = 80
+config.initial_cols = 120
+
+config.show_update_window = true
 
 -- and finally, return the configuration to wezterm
 return config
