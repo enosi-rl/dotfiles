@@ -1,5 +1,11 @@
 export PATH="$HOME/bin:$HOME/.local/bin:/Applications/Docker.app/Contents/Resources/bin/:$PATH"
 
+# Vi mode
+set -o vi
+
+# Share history
+setopt share_history
+
 ##
 ## Antidote - package manager
 ##
@@ -38,6 +44,7 @@ eval "$(starship init zsh)"
 ##
 export DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
 #export DOCKER_BUILDKIT=1
+#export DOCKER_DEFAULT_PLATFORM=linux/arm64
 
 # Docker plugins - see https://docs.docker.com/compose/install/linux/#install-the-plugin-manually
 
@@ -58,12 +65,16 @@ alias docker-stop-all='docker container stop $(docker container list -q) && dock
 alias cdc='cd ~/code'
 alias ij='/Applications/IntelliJ\ IDEA.app/Contents/MacOS/idea'
 
+# Podman
+# alias docker=podman
+
 ##
 ## Add AWS auto-complete
 ##
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
-complete -C '/usr/local/bin/aws_completer' aws
+# pkgx doesn't provide a link to the completer :-(
+complete -C '/System/Volumes/Data/Users/robert/.pkgx/aws.amazon.com/cli/v2.15.8/venv/bin/aws_completer' aws
 
 ##
 ## ripgrep
@@ -94,3 +105,7 @@ eval "$(test -x $HERMIT_ROOT_BIN && $HERMIT_ROOT_BIN shell-hooks --print --zsh)"
 ## Enosi
 ##
 export GOPRIVATE=github.com/enosi
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+# export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="/opt/homebrew/opt/ruby@3.2/bin:$PATH"
