@@ -17,8 +17,12 @@ end
 -- config.color_scheme = 'Gruvbox light, medium (base16)'
 -- config.color_scheme = 'Gruvbox light, soft (base16)'
 -- config.color_scheme = 'Gruvbox dark, medium (base16)'
-config.color_scheme = 'Gruvbox dark, pale (base16)'
+-- config.color_scheme = 'Gruvbox dark, pale (base16)'
 -- config.color_scheme = 'Gruvbox Material (Gogh)'
+
+-- config.color_scheme = 'MonokaiPro (Gogh)'
+config.color_scheme = 'Monokai Pro Ristretto (Gogh)'
+
 
 config.font = wezterm.font 'MonoLisa'
 config.audible_bell = 'Disabled'
@@ -34,7 +38,7 @@ config.colors = {
 
 config.window_decorations = "RESIZE"
 config.initial_rows = 80
-config.initial_cols = 120
+config.initial_cols = 121
 
 config.show_update_window = true
 
