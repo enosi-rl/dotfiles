@@ -2,3 +2,4 @@ belak/zsh-utils path:history
 belak/zsh-utils path:utility
 belak/zsh-utils path:completion
 zsh-users/zsh-autosuggestions
+jeffreytse/zsh-vi-mode
