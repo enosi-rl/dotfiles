@@ -3,8 +3,43 @@ export PATH="$HOME/bin:$HOME/.local/bin:/Applications/Docker.app/Contents/Resour
 # Vi mode
 set -o vi
 
-# Share history
-setopt share_history
+##########
+# HISTORY
+##########
+
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=50000
+SAVEHIST=50000
+
+# Immediately append to history file:
+setopt INC_APPEND_HISTORY
+
+# Record timestamp in history:
+setopt EXTENDED_HISTORY
+
+# Expire duplicate entries first when trimming history:
+setopt HIST_EXPIRE_DUPS_FIRST
+
+# Dont record an entry that was just recorded again:
+setopt HIST_IGNORE_DUPS
+
+# Delete old recorded entry if new entry is a duplicate:
+setopt HIST_IGNORE_ALL_DUPS
+
+# Do not display a line previously found:
+setopt HIST_FIND_NO_DUPS
+
+# Dont record an entry starting with a space:
+setopt HIST_IGNORE_SPACE
+
+# Dont write duplicate entries in the history file:
+setopt HIST_SAVE_NO_DUPS
+
+# Share history between all sessions:
+setopt SHARE_HISTORY
+
+# Execute commands using history (e.g.: using !$) immediately:
+unsetopt HIST_VERIFY
 
 ##
 ## Antidote - package manager
@@ -36,15 +71,15 @@ source $zsh_plugins
 eval "$(starship init zsh)"
 
 # Default toolsets using pkgx
-# pkgx install --silent aws aws-vault colima direnv docker docker-compose gh terraform terraform-docs
-# pkgx install --silent aws aws-vault direnv gh terraform terraform-docs
+# pkgx install --silent atuin aws aws-vault colima direnv jq docker docker-compose gh terraform terraform-docs
+# pkgx install --silent atuin aws aws-vault direnv jq gh terraform terraform-docs
 
 ##
 ## Docker
 ##
 export DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
 #export DOCKER_BUILDKIT=1
-#export DOCKER_DEFAULT_PLATFORM=linux/arm64
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 # Docker plugins - see https://docs.docker.com/compose/install/linux/#install-the-plugin-manually
 
@@ -75,6 +110,11 @@ autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 # pkgx doesn't provide a link to the completer :-(
 complete -C '/System/Volumes/Data/Users/robert/.pkgx/aws.amazon.com/cli/v2.15.8/venv/bin/aws_completer' aws
+
+##
+## zoxide - https://github.com/ajeetdsouza/zoxide
+##
+# eval "$(zoxide init zsh)"
 
 ##
 ## ripgrep
