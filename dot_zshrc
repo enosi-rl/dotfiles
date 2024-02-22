@@ -106,10 +106,10 @@ alias ij='/Applications/IntelliJ\ IDEA.app/Contents/MacOS/idea'
 ##
 ## Add AWS auto-complete
 ##
-autoload bashcompinit && bashcompinit
-autoload -Uz compinit && compinit
-# pkgx doesn't provide a link to the completer :-(
-complete -C '/System/Volumes/Data/Users/robert/.pkgx/aws.amazon.com/cli/v2.15.8/venv/bin/aws_completer' aws
+# autoload bashcompinit && bashcompinit
+# autoload -Uz compinit && compinit
+# # pkgx doesn't provide a link to the completer :-(
+# complete -C '/System/Volumes/Data/Users/robert/.pkgx/aws.amazon.com/cli/v2.15.8/venv/bin/aws_completer' aws
 
 ##
 ## zoxide - https://github.com/ajeetdsouza/zoxide
@@ -146,6 +146,10 @@ eval "$(test -x $HERMIT_ROOT_BIN && $HERMIT_ROOT_BIN shell-hooks --print --zsh)"
 ##
 export GOPRIVATE=github.com/enosi
 
+##
+## Ruby
+##
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 # export PATH="$PATH:$HOME/.rvm/bin"
+
 export PATH="/opt/homebrew/opt/ruby@3.2/bin:$PATH"
