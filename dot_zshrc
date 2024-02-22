@@ -3,10 +3,9 @@ export PATH="$HOME/bin:$HOME/.local/bin:/Applications/Docker.app/Contents/Resour
 # Vi mode
 set -o vi
 
-##########
-# HISTORY
-##########
-
+##
+## History
+##
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=50000
 SAVEHIST=50000
@@ -62,17 +61,18 @@ fi
 # Source your static plugins file.
 source $zsh_plugins
 
-# Use Vim-mode
-# bindkey -v
-
 ##
 ## Starship
 ##
 eval "$(starship init zsh)"
 
+##
+## Pkgx
+##
 # Default toolsets using pkgx
 # pkgx install --silent atuin aws aws-vault colima direnv jq docker docker-compose gh terraform terraform-docs
 # pkgx install --silent atuin aws aws-vault direnv jq gh terraform terraform-docs
+source <(pkgx --shellcode)  #docs.pkgx.sh/shellcode
 
 ##
 ## Docker
@@ -124,12 +124,7 @@ export RIPGREP_CONFIG_PATH=~/.ripgreprc
 ##
 ## direnv
 ##
-eval "$(direnv hook zsh)"
-
-##
-## pkgx
-##
-source <(pkgx --shellcode)  #docs.pkgx.sh/shellcode
+# eval "$(direnv hook zsh)"
 
 export ENOSI_COMMON_DIR=~/code/common
 
