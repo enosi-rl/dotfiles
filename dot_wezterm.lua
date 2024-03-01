@@ -42,5 +42,9 @@ config.initial_cols = 121
 
 config.show_update_window = true
 
+config.keys = {
+  { key = 'A', mods = 'CMD', action = wezterm.action.ShowTabNavigator },
+}
+
 -- and finally, return the configuration to wezterm
 return config
