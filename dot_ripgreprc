@@ -7,3 +7,5 @@
 
 # Disable ignore case if search contains uppercase
 --smart-case
+
+--type-add=tf:*.tfvars
