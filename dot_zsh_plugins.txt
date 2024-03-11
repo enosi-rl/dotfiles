@@ -1,2 +1,1 @@
-jeffreytse/zsh-vi-mode
-atuinsh/atuin branch:v18.0.1
+softmoth/zsh-vim-mode

@@ -62,6 +62,16 @@ fi
 source $zsh_plugins
 
 ##
+## zsh-vim-mode - https://github.com/softmoth/zsh-vim-mode
+##
+MODE_CURSOR_VIINS="#ffffff blinking bar"
+MODE_CURSOR_REPLACE="$MODE_CURSOR_VIINS #ff0000"
+MODE_CURSOR_VICMD="white block"
+MODE_CURSOR_SEARCH="#ff00ff steady underline"
+MODE_CURSOR_VISUAL="$MODE_CURSOR_VICMD steady bar"
+MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
+
+##
 ## Starship
 ##
 eval "$(starship init zsh)"
@@ -100,16 +110,23 @@ alias docker-stop-all='docker container stop $(docker container list -q) && dock
 alias cdc='cd ~/code'
 alias ij='/Applications/IntelliJ\ IDEA.app/Contents/MacOS/idea'
 
+## Global - see https://justingarrison.com/blog/2023-06-05-zsh-global-aliases/
+alias -g G='| grep'
+alias -g H='| head'
+alias -g L='| less'
+alias -g M='| mlr cat'
+alias -g R='| rg'
+
 # Podman
 # alias docker=podman
 
 ##
 ## Add AWS auto-complete
 ##
-# autoload bashcompinit && bashcompinit
-# autoload -Uz compinit && compinit
-# # pkgx doesn't provide a link to the completer :-(
-# complete -C '/System/Volumes/Data/Users/robert/.pkgx/aws.amazon.com/cli/v2.15.8/venv/bin/aws_completer' aws
+autoload bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+# pkgx doesn't provide a link to the completer :-(
+complete -C '/System/Volumes/Data/Users/robert/.pkgx/aws.amazon.com/cli/v2.15.8/venv/bin/aws_completer' aws
 
 ##
 ## zoxide - https://github.com/ajeetdsouza/zoxide
@@ -148,3 +165,27 @@ export GOPRIVATE=github.com/enosi
 # export PATH="$PATH:$HOME/.rvm/bin"
 
 export PATH="/opt/homebrew/opt/ruby@3.2/bin:$PATH"
+
+##
+## fzf
+##
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+[ -f ~/bin/fzf-git.sh ] && source ~/bin/fzf-git.sh
+
+# Add '?' to show preview window for long commands
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
+
+# Use 'ctrl-x ctrl-r' to run command immediately
+# Doesn't work :-(
+# fzf-history-widget-accept() {
+#   fzf-history-widget
+#   zle accept-line
+# }
+# zle     -N     fzf-history-widget-accept
+# bindkey '^X^R' fzf-history-widget-accept
+
+gco() {
+  _fzf_git_each_ref --no-multi | xargs git checkout
+}
+
