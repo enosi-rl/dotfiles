@@ -5,6 +5,7 @@
 *.njsproj
 *.sln
 *.swp
+.session.vim
 
 # toolchain log files
 *.log
