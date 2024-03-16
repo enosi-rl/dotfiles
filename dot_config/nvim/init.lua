@@ -800,6 +800,18 @@ require('lazy').setup({
       --   return '%2l:%-2v'
       -- end
 
+      -- Session management
+      require('mini.sessions').setup { file = '.session.vim', auto_save = true }
+      require('mini.starter').setup { file = '.session.vim' }
+
+      -- [[ VimLeavePre ]]
+      -- Stuff to do on exit.
+      vim.api.nvim_create_autocmd('VimLeavePre', {
+        callback = function()
+          vim.cmd [[:mksession! .session.vim]]
+        end,
+        pattern = '*',
+      })
       -- ... and there is more!
       -- Check out: https://github.com/echasnovski/mini.nvim
     end,
