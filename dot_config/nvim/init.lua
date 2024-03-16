@@ -718,6 +718,7 @@ require('lazy').setup({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
+          { name = 'cody' },
         },
       }
     end,
@@ -832,6 +833,17 @@ require('lazy').setup({
       --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
+  },
+
+  {
+    'sourcegraph/sg.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim', --[[ "nvim-telescope/telescope.nvim ]]
+    },
+
+    -- If you have a recent version of lazy.nvim, you don't need to add this!
+    build = 'nvim -l build/init.lua',
+    opts = {},
   },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
