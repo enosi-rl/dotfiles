@@ -62,6 +62,17 @@ fi
 source $zsh_plugins
 
 ##
+## zsh-syntax-highlighting - https://github.com/zsh-users/zsh-syntax-highlighting
+## add zsh-autoquoter
+##
+ZSH_HIGHLIGHT_HIGHLIGHTERS+=(zaq)
+
+##
+## zsh-autoquoter - https://github.com/ianthehenry/zsh-autoquoter
+##
+ZAQ_PREFIXES=('git commit( [^ ]##)# -[^ -]#m' 'ssh( -[^ ]##)# [^ -][^ ]#')
+
+##
 ## zsh-vim-mode - https://github.com/softmoth/zsh-vim-mode
 ##
 MODE_CURSOR_VIINS="#ffffff blinking bar"

@@ -1,1 +1,3 @@
 softmoth/zsh-vim-mode
+ianthehenry/zsh-autoquoter
+zsh-users/zsh-syntax-highlighting
