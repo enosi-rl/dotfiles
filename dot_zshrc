@@ -82,7 +82,7 @@ eval "$(starship init zsh)"
 # Default toolsets using pkgx
 # pkgx install --silent atuin aws aws-vault colima direnv jq docker docker-compose gh terraform terraform-docs
 # pkgx install --silent atuin aws aws-vault direnv jq gh terraform terraform-docs
-source <(pkgx --shellcode)  #docs.pkgx.sh/shellcode
+# source <(pkgx --shellcode)  #docs.pkgx.sh/shellcode
 
 ##
 ## Docker
@@ -172,6 +172,9 @@ export PATH="/opt/homebrew/opt/ruby@3.2/bin:$PATH"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 [ -f ~/bin/fzf-git.sh ] && source ~/bin/fzf-git.sh
+
+# Show in reverse order
+export FZF_DEFAULT_OPTS='--height 33% --layout=reverse'
 
 # Add '?' to show preview window for long commands
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
