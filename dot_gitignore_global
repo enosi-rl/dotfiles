@@ -6,6 +6,7 @@
 *.sln
 *.swp
 .session.vim
+.vscode
 
 # toolchain log files
 *.log
