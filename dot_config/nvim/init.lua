@@ -287,6 +287,53 @@ require('lazy').setup({
     end,
   },
 
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      'MunifTanjim/nui.nvim',
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      'rcarriga/nvim-notify',
+    },
+    config = function() -- This is the function that runs, AFTER loading
+      require('noice').setup {
+        lsp = {
+          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+          override = {
+            ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+            ['vim.lsp.util.stylize_markdown'] = true,
+            ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
+          },
+        },
+        -- you can enable a preset for easier configuration
+        presets = {
+          bottom_search = true, -- use a classic bottom cmdline for search
+          command_palette = true, -- position the cmdline and popupmenu together
+          long_message_to_split = true, -- long messages will be sent to a split
+          inc_rename = false, -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = false, -- add a border to hover docs and signature help
+        },
+      }
+    end,
+  },
+
+  {
+    'folke/trouble.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+      icons = false,
+    },
+  },
+
   -- NOTE: Plugins can specify dependencies.
   --
   -- The dependencies are proper plugin specifications as well - anything
@@ -859,6 +906,31 @@ require('lazy').setup({
     -- If you have a recent version of lazy.nvim, you don't need to add this!
     build = 'nvim -l build/init.lua',
     opts = {},
+  },
+
+  { 'mfussenegger/nvim-dap', event = 'VimEnter' },
+  { 'rcarriga/nvim-dap-ui', event = 'VimEnter' },
+  {
+    'theHamsta/nvim-dap-virtual-text',
+    event = 'VimEnter',
+    config = function()
+      require('nvim-dap-virtual-text').setup {}
+    end,
+  },
+
+  {
+    'ray-x/go.nvim',
+    dependencies = { -- optional packages
+      'ray-x/guihua.lua',
+      'neovim/nvim-lspconfig',
+      'nvim-treesitter/nvim-treesitter',
+    },
+    config = function()
+      require('go').setup()
+    end,
+    event = { 'CmdlineEnter' },
+    ft = { 'go', 'gomod' },
+    --build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
   },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
