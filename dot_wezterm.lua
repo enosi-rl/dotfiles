@@ -14,9 +14,9 @@ end
 -- config.color_scheme = 'Gruvbox light, hard (base16)'
 -- config.color_scheme = 'Gruvbox light, medium (base16)'
 -- config.color_scheme = 'Gruvbox light, soft (base16)'
-config.color_scheme = "Gruvbox dark, medium (base16)"
+-- config.color_scheme = "Gruvbox dark, medium (base16)"
 -- config.color_scheme = 'Gruvbox dark, pale (base16)'
--- config.color_scheme = 'Gruvbox Material (Gogh)'
+config.color_scheme = "Gruvbox Material (Gogh)"
 
 -- config.color_scheme = 'MonokaiPro (Gogh)'
 -- config.color_scheme = 'Monokai Pro Ristretto (Gogh)'
