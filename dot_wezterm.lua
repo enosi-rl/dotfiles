@@ -1,6 +1,8 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
 
+local act = wezterm.action
+
 -- This table will hold the configuration.
 local config = {}
 
@@ -43,7 +45,54 @@ config.show_update_window = true
 
 config.keys = {
 	{ key = "A", mods = "CMD", action = wezterm.action.ShowTabNavigator },
+
+	{
+		key = "W",
+		mods = "CMD",
+		action = act.PromptInputLine({
+			description = wezterm.format({
+				{ Attribute = { Intensity = "Bold" } },
+				{ Foreground = { AnsiColor = "Fuchsia" } },
+				{ Text = "Enter name for new workspace" },
+			}),
+			action = wezterm.action_callback(function(window, pane, line)
+				-- line will be `nil` if they hit escape without entering anything
+				-- An empty string if they just hit enter
+				-- Or the actual line of text they wrote
+				if line then
+					window:perform_action(
+						act.SwitchToWorkspace({
+							name = line,
+						}),
+						pane
+					)
+				end
+			end),
+		}),
+	},
+
+	{
+		key = "W",
+		mods = "ALT",
+		action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }),
+	},
+	{ key = "N", mods = "ALT", action = act.SwitchWorkspaceRelative(1) },
+	{ key = "P", mods = "ALT", action = act.SwitchWorkspaceRelative(-1) },
 }
+
+wezterm.on("update-right-status", function(window, pane)
+	local cwd_uri = pane:get_current_working_dir()
+	local cwd = ""
+
+	if cwd_uri then
+		cwd = cwd_uri.file_path
+	end
+	window:set_right_status(wezterm.format({
+		{ Attribute = { Intensity = "Half" } },
+		{ Foreground = { Color = "#aaaaaa" } },
+		{ Text = "Workspace: " .. window:active_workspace() .. " @ " .. cwd .. "    " },
+	}))
+end)
 
 -- and finally, return the configuration to wezterm
 return config
