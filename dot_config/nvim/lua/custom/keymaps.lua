@@ -1,5 +1,6 @@
 vim.api.nvim_set_keymap('i', 'jj', '<Esc>', { noremap = false })
 -- buffers
+vim.api.nvim_set_keymap('n', 'tb', ':buffer #<enter>', { noremap = false, desc = 'to last edited buffer' })
 vim.api.nvim_set_keymap('n', 'tk', ':blast<enter>', { noremap = false })
 vim.api.nvim_set_keymap('n', 'tj', ':bfirst<enter>', { noremap = false })
 vim.api.nvim_set_keymap('n', 'th', ':bprev<enter>', { noremap = false })
@@ -10,8 +11,6 @@ vim.api.nvim_set_keymap('n', 'QQ', ':q!<enter>', { noremap = false })
 vim.api.nvim_set_keymap('n', 'WW', ':w!<enter>', { noremap = false })
 vim.api.nvim_set_keymap('n', 'E', '$', { noremap = false })
 vim.api.nvim_set_keymap('n', 'B', '^', { noremap = false })
-vim.api.nvim_set_keymap('n', 'TT', ':TransparentToggle<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', 'st', ':TodoTelescope<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'ss', ':noh<CR>', { noremap = true })
 -- splits
 vim.api.nvim_set_keymap('n', '<C-W>,', ':vertical resize -10<CR>', { noremap = true })

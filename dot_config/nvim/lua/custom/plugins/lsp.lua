@@ -145,7 +145,10 @@ return {
       local servers = {
         -- clangd = {},
         gopls = {
-          cmd = { '/Users/robert/code/syndesi/.hermit/go/bin/gopls' },
+          -- Uses the relative install of Go (using Hermit)
+          -- cmd = { './.hermit/go/bin/gopls' },
+          -- Uses the global install of Go (using pkgx)
+          cmd = { '/Users/robert/go/bin/gopls' },
         },
         graphql = {},
         -- pyright = {},

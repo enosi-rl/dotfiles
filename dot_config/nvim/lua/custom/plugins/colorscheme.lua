@@ -83,7 +83,7 @@ return {
         -- hop = true,
         -- illuminate = true,
         native_lsp = { enabled = true, inlay_hints = { background = true } },
-        -- neogit = true,
+        neogit = true,
         -- neotree = true,
         -- semantic_tokens = true,
         treesitter = true,

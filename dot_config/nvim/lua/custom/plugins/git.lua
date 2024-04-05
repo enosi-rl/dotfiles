@@ -32,12 +32,12 @@ return {
       neogit.setup {}
 
       vim.keymap.set('n', '<leader>gs', neogit.open, {
-        desc = 'Neogit [S]tart',
+        desc = 'Neogit [s]tart',
         silent = true,
         noremap = true,
       })
-      vim.keymap.set('n', '<leader>gc', ':Neogit commit<CR>', {
-        desc = 'Neogit [c]commit',
+      vim.keymap.set('n', '<leader>gC', ':Neogit commit<CR>', {
+        desc = 'Neogit [C]commit',
         silent = true,
         noremap = true,
       })
@@ -47,7 +47,7 @@ return {
         noremap = true,
       })
       vim.keymap.set('n', '<leader>gP', ':Neogit push<CR>', {
-        desc = 'Neogit [p]ush',
+        desc = 'Neogit [P]ush',
         silent = true,
         noremap = true,
       })
@@ -56,11 +56,21 @@ return {
         silent = true,
         noremap = true,
       })
+      vim.keymap.set('n', '<leader>gl', "<CMD>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", {
+        desc = 'git worktree [l]ist',
+      })
+      vim.keymap.set('n', '<leader>gA', "<CMD>lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>", {
+        desc = 'git worktree [A]dd',
+      })
       --vim.keymap.set('n', '<leader>gB', ':G blame<CR>', {
       --  desc = 'Neogit [B]lame',
       --  silent = true,
       --  noremap = true,
       --})
     end,
+  },
+
+  {
+    'ThePrimeagen/git-worktree.nvim',
   },
 }
