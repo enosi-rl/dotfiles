@@ -1,11 +1,12 @@
 command_timeout=750
 
-format = '''[->](bold green) $directory$aws$git_branch$git_commit$git_state$git_metrics$git_status$terraform(bold green) 
+format = '''[->](bold green) $directory$aws$git_branch$git_commit$git_state$git_metrics$git_status$terraform(bold green)
 $character'''
 
 [directory]
 style='cyan'
-truncation_length = 8
+truncation_length = 3
+truncate_to_repo = false
 
 [direnv]
 disabled=false
