@@ -9,8 +9,11 @@ set -o vi
 ## History
 ##
 HISTFILE=$HOME/.zsh_history
-HISTSIZE=50000
-SAVEHIST=50000
+HISTSIZE=10000000
+SAVEHIST=10000000
+
+# Don't record certain commands:
+HISTORY_IGNORE="(ls|cd|pwd|exit)*"
 
 # Immediately append to history file:
 setopt INC_APPEND_HISTORY
@@ -21,17 +24,20 @@ setopt EXTENDED_HISTORY
 # Expire duplicate entries first when trimming history:
 setopt HIST_EXPIRE_DUPS_FIRST
 
-# Dont record an entry that was just recorded again:
-setopt HIST_IGNORE_DUPS
+# Do not display a line previously found:
+setopt HIST_FIND_NO_DUPS
 
 # Delete old recorded entry if new entry is a duplicate:
 setopt HIST_IGNORE_ALL_DUPS
 
-# Do not display a line previously found:
-setopt HIST_FIND_NO_DUPS
+# Dont record an entry that was just recorded again:
+setopt HIST_IGNORE_DUPS
 
 # Dont record an entry starting with a space:
 setopt HIST_IGNORE_SPACE
+
+# Remove superfluous blanks from each command line being added to the history.
+setopt HIST_REDUCE_BLANKS
 
 # Dont write duplicate entries in the history file:
 setopt HIST_SAVE_NO_DUPS
@@ -109,20 +115,21 @@ export DOCKER_DEFAULT_PLATFORM=linux/amd64
 ##
 ## Aliases
 ##
+alias cdc='cd ~/code'
+alias cde='cd ~/enosi'
 alias cp='cp -i'
+alias docker-stop-all='docker container stop $(docker container list -q) && docker container prune -f'
 alias gd='git diff --color-words'
 alias gdtl='git difftool'
 alias gl='git log'
 alias gp='git pull'
-alias gs='git status'
 alias gprev='git checkout -'
+alias gs='git status'
+alias ij='/Applications/IntelliJ\ IDEA.app/Contents/MacOS/idea'
 alias ll='ls -alF'
 alias mv='mv -i'
 alias rm='rm -i'
-alias docker-stop-all='docker container stop $(docker container list -q) && docker container prune -f'
-alias cdc='cd ~/code'
-alias cde='cd ~/enosi'
-alias ij='/Applications/IntelliJ\ IDEA.app/Contents/MacOS/idea'
+alias vim='nvim'
 
 ## Global - see https://justingarrison.com/blog/2023-06-05-zsh-global-aliases/
 alias -g G='| grep'
