@@ -6,6 +6,8 @@ return {
   config = function()
     require('nightfox').setup {
       options = {
+        -- transparent = false, -- Disable setting background
+        -- dim_inactive = false, -- Non focused panes set to alternative background
         styles = {
           comments = 'italic',
           -- conditionals = 'NONE',
@@ -22,6 +24,9 @@ return {
           match_paren = true,
           visual = true,
           search = false,
+        },
+        modules = {
+          native_lsp = { enabled = true, inlay_hints = { background = true } },
         },
       },
     }
