@@ -22,7 +22,7 @@ return {
         },
         inverse = { -- Inverse highlight for different types
           match_paren = true,
-          visual = true,
+          visual = false,
           search = false,
         },
         modules = {
