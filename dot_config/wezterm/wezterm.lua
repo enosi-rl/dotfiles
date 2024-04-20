@@ -1,6 +1,19 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
 
+-- Session management https://github.com/danielcopper/wezterm-session-manager
+local session_manager = require("wezterm-session-manager/session-manager")
+
+wezterm.on("save_session", function(window)
+	session_manager.save_state(window)
+end)
+wezterm.on("load_session", function(window)
+	session_manager.load_state(window)
+end)
+wezterm.on("restore_session", function(window)
+	session_manager.restore_state(window)
+end)
+
 local act = wezterm.action
 
 -- This table will hold the configuration.
@@ -28,6 +41,7 @@ config.color_scheme = "nordfox"
 -- config.color_scheme = 'Mocha (dark) (terminal.sexy)'
 
 config.font = wezterm.font("MonoLisa")
+config.line_height = 1.2
 config.audible_bell = "Disabled"
 config.visual_bell = {
 	fade_in_function = "EaseIn",
@@ -80,6 +94,11 @@ config.keys = {
 	},
 	{ key = "N", mods = "ALT", action = act.SwitchWorkspaceRelative(1) },
 	{ key = "P", mods = "ALT", action = act.SwitchWorkspaceRelative(-1) },
+
+	-- session management
+	{ key = "S", mods = "ALT", action = wezterm.action({ EmitEvent = "save_session" }) },
+	{ key = "L", mods = "ALT", action = wezterm.action({ EmitEvent = "load_session" }) },
+	{ key = "R", mods = "ALT", action = wezterm.action({ EmitEvent = "restore_session" }) },
 }
 
 wezterm.on("update-right-status", function(window, pane)
