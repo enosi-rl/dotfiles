@@ -71,14 +71,15 @@ source $zsh_plugins
 
 ##
 ## zsh-syntax-highlighting - https://github.com/zsh-users/zsh-syntax-highlighting
+## Add `ianthehenry/zsh-autoquoter` to .zsh_plugins.txt
 ## add zsh-autoquoter
 ##
-ZSH_HIGHLIGHT_HIGHLIGHTERS+=(zaq)
+# Broken when ssh tunnelling ZSH_HIGHLIGHT_HIGHLIGHTERS+=(zaq)
 
 ##
 ## zsh-autoquoter - https://github.com/ianthehenry/zsh-autoquoter
 ##
-ZAQ_PREFIXES=('git commit( [^ ]##)# -[^ -]#m' 'ssh( -[^ ]##)# [^ -][^ ]#')
+# Broken when ssh tunnelling ZAQ_PREFIXES=('git commit( [^ ]##)# -[^ -]#m' 'ssh( -[^ ]##)# [^ -][^ ]#')
 
 ##
 ## zsh-vim-mode - https://github.com/softmoth/zsh-vim-mode
