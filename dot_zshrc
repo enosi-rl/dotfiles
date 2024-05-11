@@ -116,15 +116,17 @@ export DOCKER_DEFAULT_PLATFORM=linux/amd64
 ##
 ## Aliases
 ##
+alias cdb='cd ~/proj/bpg_poc/'
 alias cdc='cd ~/code'
 alias cde='cd ~/enosi'
+alias cdp='cd ~/proj'
 alias cp='cp -i'
 alias docker-stop-all='docker container stop $(docker container list -q) && docker container prune -f'
 alias gd='git diff --color-words'
 alias gdtl='git difftool'
 alias gl='git log'
 alias gp='git pull'
-alias gprev='git checkout -'
+alias gprev='git switch -'
 alias gs='git status'
 alias ij='/Applications/IntelliJ\ IDEA.app/Contents/MacOS/idea'
 alias ll='ls -alF'
