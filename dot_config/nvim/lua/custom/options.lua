@@ -115,3 +115,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
+-- Enable spellchecker
+vim.opt.spelllang = 'en_gb'
+vim.opt.spell = true
