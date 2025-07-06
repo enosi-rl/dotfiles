@@ -1,0 +1,11 @@
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Added by OrbStack: command-line tools and integration
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+
+# Added by Toolbox App
+export PATH="$PATH:/Users/robert/Library/Application Support/JetBrains/Toolbox/scripts"
+
+# mise integration
+# eval "$($HOME/.local/bin/mise activate zsh --shims)"

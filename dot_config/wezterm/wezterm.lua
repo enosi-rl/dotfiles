@@ -40,8 +40,15 @@ config.color_scheme = "nordfox"
 -- config.color_scheme = 'Monokai (terminal.sexy)'
 -- config.color_scheme = 'Mocha (dark) (terminal.sexy)'
 
-config.font = wezterm.font("MonoLisa")
-config.line_height = 1.2
+config.font = wezterm.font({
+	family = "MonoLisa Variable",
+	weight = 200,
+	harfbuzz_features = { "rlig=1", "liga=1", "calt=1", "dlig=1", "zero=1", "ss02=1" },
+	-- ==> --> harfbuzz_features = { "liga=1", "calt=1", "zero=1", "ss02=1", "rlig=1", "dlig=1" },
+})
+config.font_size = 12.25
+
+config.line_height = 1.15
 config.audible_bell = "Disabled"
 config.visual_bell = {
 	fade_in_function = "EaseIn",
@@ -64,7 +71,7 @@ config.keys = {
 
 	{
 		key = "W",
-		mods = "CMD",
+		mods = "ALT",
 		action = act.PromptInputLine({
 			description = wezterm.format({
 				{ Attribute = { Intensity = "Bold" } },
@@ -89,7 +96,7 @@ config.keys = {
 
 	{
 		key = "W",
-		mods = "ALT",
+		mods = "CMD",
 		action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }),
 	},
 	{ key = "N", mods = "ALT", action = act.SwitchWorkspaceRelative(1) },

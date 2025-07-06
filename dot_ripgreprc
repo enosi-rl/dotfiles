@@ -1,5 +1,5 @@
 # Don't let ripgrep vomit really long lines to my terminal, and show a preview.
---max-columns=150
+--max-columns=750
 --max-columns-preview
 
 # Using glob patterns to include/exclude files or folders
@@ -9,3 +9,4 @@
 --smart-case
 
 --type-add=tf:*.tfvars
+--type-add=got:*_test.go

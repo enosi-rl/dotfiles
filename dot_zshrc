@@ -1,9 +1,13 @@
-export PATH="$HOME/bin:$HOME/.local/bin:/Applications/Docker.app/Contents/Resources/bin/:$PATH"
+export PATH="$HOME/.npm-global/bin:$HOME/bin:$HOME/.local/bin:/Applications/Docker.app/Contents/Resources/bin/:$PATH"
 
 source ~/bin/wezterm-shell-integration.sh
 
 # Vi mode
 set -o vi
+
+# Use neovim as the editor
+export VISUAL=nvim
+export EDITOR="$VISUAL"
 
 ##
 ## History
@@ -122,24 +126,39 @@ alias cde='cd ~/enosi'
 alias cdp='cd ~/proj'
 alias cp='cp -i'
 alias docker-stop-all='docker container stop $(docker container list -q) && docker container prune -f'
+alias ga='git add'
+alias gc='git commit'
 alias gd='git diff --color-words'
 alias gdtl='git difftool'
+alias gdtlc='git difftool --cached'
 alias gl='git log'
+alias glr='git lr'
 alias gp='git pull'
 alias gprev='git switch -'
+alias gr='git restore'
 alias gs='git status'
+alias gsh='git show'
+alias gshn='git show --pretty="" --name-only'
 alias ij='/Applications/IntelliJ\ IDEA.app/Contents/MacOS/idea'
 alias ll='ls -alF'
 alias mv='mv -i'
 alias rm='rm -i'
 alias vim='nvim'
 
+# ceedee dot dot dot
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+
 ## Global - see https://justingarrison.com/blog/2023-06-05-zsh-global-aliases/
 alias -g G='| grep'
-alias -g H='| head'
-alias -g L='| less'
+alias -g H='| head -R'
+alias -g L='| less -R'
 alias -g M='| mlr cat'
 alias -g R='| rg'
+
+# Difft
+export DFT_COLOR=always
 
 # Podman
 # alias docker=podman
@@ -151,6 +170,9 @@ autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 # pkgx doesn't provide a link to the completer :-(
 complete -C '/System/Volumes/Data/Users/robert/.pkgx/aws.amazon.com/cli/v2.15.8/venv/bin/aws_completer' aws
+
+# jujitsu - https://jj-vcs.github.io/jj/latest/install-and-setup/#standard_1
+source <(jj util completion zsh)
 
 ##
 ## zoxide - https://github.com/ajeetdsouza/zoxide
@@ -188,7 +210,7 @@ export GOPRIVATE=github.com/enosi
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 # export PATH="$PATH:$HOME/.rvm/bin"
 
-export PATH="/opt/homebrew/opt/ruby@3.2/bin:$PATH"
+# export PATH="/opt/homebrew/opt/ruby@3.2/bin:$PATH"
 
 ##
 ## fzf
@@ -216,7 +238,6 @@ gco() {
   _fzf_git_each_ref --no-multi | xargs git checkout
 }
 
-export PATH="/opt/homebrew/opt/ruby@3.2/bin:$PATH"
 #compdef gt
 ###-begin-gt-completions-###
 #
@@ -702,4 +723,3 @@ _helm()
 #     _helm
 # fi
 # compdef _helm helm%
-eval "$(~/.local/bin/mise activate zsh)"
