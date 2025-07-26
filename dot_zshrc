@@ -1,4 +1,7 @@
-export PATH="$HOME/.npm-global/bin:$HOME/bin:$HOME/.local/bin:/Applications/Docker.app/Contents/Resources/bin/:$PATH"
+# Only add to PATH if $HOME/.npm-global/bin is not already present
+if [[ ":$PATH:" != *":$HOME/.npm-global/bin:"* ]]; then
+  export PATH="$HOME/.npm-global/bin:$HOME/bin:$HOME/.local/bin:/Applications/Docker.app/Contents/Resources/bin/:$PATH"
+fi
 
 source ~/bin/wezterm-shell-integration.sh
 
@@ -178,7 +181,7 @@ autoload -Uz compinit && compinit
 complete -C '/System/Volumes/Data/Users/robert/.pkgx/aws.amazon.com/cli/v2.15.8/venv/bin/aws_completer' aws
 
 # jujitsu - https://jj-vcs.github.io/jj/latest/install-and-setup/#standard_1
-source <(jj util completion zsh)
+# source <(jj util completion zsh)
 
 ##
 ## zoxide - https://github.com/ajeetdsouza/zoxide
@@ -707,3 +710,4 @@ compdef _gt_yargs_completions gt
 #     _helm
 # fi
 # compdef _helm helm%
+eval "$(mise activate zsh)"
