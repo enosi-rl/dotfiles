@@ -1,0 +1,78 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  // Workspace restoration behavior.
+  //   All workspaces ("last_session"), last workspace ("last_workspace") or "none"
+  "restore_on_startup": "last_session",
+  // Whether to attempt to restore previous file's state when opening it again.
+  // E.g. for editors, selections, folds and scroll positions are restored
+  "restore_on_file_reopen": true,
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "vim_mode": true,
+  "theme": {
+    "mode": "dark",
+    "light": "Nord Light",
+    "dark": "Nord"
+  },
+  // UI Font. Use ".SystemUIFont" to use the default system font (SF Pro on macOS)
+  "ui_font_family": "MonoLisa Variable",
+  "ui_font_weight": 400, // Font weight in standard CSS units from 100 to 900.
+  "ui_font_size": 15,
+  "ui_font_features": {
+    // cursive 'f'
+    "ss02": true,
+    // plex-like braces
+    "ss07": true,
+    // nicer hex '0x'
+    "ss11": true,
+    // nicer '&'
+    "ss14": true
+  },
+
+  // Buffer Font - Used by editor buffers
+  "buffer_font_family": "MonoLisa Variable", // Font name for editor buffers
+  "buffer_font_size": 14, // Font size for editor buffers
+  "buffer_font_weight": 300, // Font weight in CSS units [100-900]
+  // Line height "comfortable" (1.618), "standard" (1.3) or custom: `{ "custom": 2 }`
+  "buffer_line_height": "comfortable",
+  "buffer_font_features": {
+    // cursive 'f'
+    "ss02": true,
+    // plex-like braces
+    "ss07": true,
+    // nicer hex '0x'
+    "ss11": true,
+    // nicer '&'
+    "ss14": true
+  },
+
+  // Terminal Font Settings
+  "terminal": {
+    "font_family": "MonoLisa Variable",
+    "font_size": 14,
+    // Terminal line height: comfortable (1.618), standard(1.3) or `{ "custom": 2 }`
+    "line_height": "comfortable",
+    "font_features": {
+      // cursive 'f'
+      "ss02": true,
+      // plex-like braces
+      "ss07": true,
+      // nicer hex '0x'
+      "ss11": true,
+      // nicer '&'
+      "ss14": true
+    }
+  },
+
+  // Agent Panel Font Settings
+  "agent_font_size": 14
+}
