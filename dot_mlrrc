@@ -1,0 +1,5 @@
+# Always stop on script errors
+-x
+
+# Default to json -> xtab (Vertical tabular)
+--j2x
