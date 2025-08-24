@@ -11,11 +11,17 @@ jq = "latest"
 lazydocker = "latest"
 neovim = "latest"
 node = "latest"
+postgres = "16"
 ripgrep = "latest"
 shellcheck = "latest"
 sqlite = "latest"
 starship = "latest"
+terraform = "latest"
+terraform-docs = "latest"
 "ubi:cashapp/hermit" = "latest"
 "ubi:jj-vcs/jj" = "latest"
 "ubi:johnkerl/miller" = { version = "latest", exe = "mlr" }
 "ubi:quarylabs/sqruff" = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = ["ruby"]

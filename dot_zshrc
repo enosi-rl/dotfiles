@@ -1,7 +1,7 @@
 # zsh Profiling
 # zmodload zsh/zprof
 
-# Only add to PATH if $HOME//bin is not already present
+# Only add to PATH if $HOME/bin is not already present
 if [[ ":$PATH:" != *":$HOME/bin:"* ]]; then
   export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 fi
@@ -114,8 +114,8 @@ source ~/bin/wezterm-shell-integration.sh
 # Vi mode
 set -o vi
 
-# Use neovim as the editor
-export VISUAL=nvim
+# Use zed as the editor
+export VISUAL="zed --wait"
 export EDITOR="$VISUAL"
 
 ##
@@ -195,16 +195,20 @@ MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
 ##
 ## Aliases
 ##
+alias ag='auggie --model GPT-5 --workspace-root $PWD --rules ~/augment-guidelines'
 alias cdc='cd ~/code'
-alias cdcea='cd ~/code/esna-exempt-supply-aggregator/main/'
-alias cdcen='cd ~/code/esna-settlements-notifier/main/'
-alias cdch='cd ~/code/historian/main/'
-alias cdcs='cd ~/code/syndesi/main/'
-alias cdcte='cd ~/code/trade-engine/main/'
-alias cdctre='cd ~/code/trade-register/main/'
-alias cdctru='cd ~/code/trade-rules/main/'
+alias cdcea='cd ~/code/esna-exempt-supply-aggregator/main.esa/'
+alias cdcen='cd ~/code/esna-settlements-notifier/main.esna.notifier/'
+alias cdch='cd ~/code/historian/main.historian/'
+alias cdcs='cd ~/code/syndesi/main.syndesi/'
+alias cdcte='cd ~/code/trade-engine/main.trade.engine/'
+alias cdctre='cd ~/code/trade-register/main.trade.register/'
+alias cdctru='cd ~/code/trade-rules/main.trade.rules/'
 alias cdp='cd ~/proj'
 alias cdpe='cd ~/proj/evolve-reconcile/'
+alias cdi='cd ~/infra'
+alias cdie='cd ~/infra/infra-enosi-evolve-energy/staging.evolve.infra'
+alias cdiei='cd ~/infra/infra-enosi-evolve-energy-integration/prod.evolve.integration'
 alias cp='cp -i'
 alias docker-stop-all='docker container stop $(docker container list -q) && docker container prune -f'
 alias ga='git add'
@@ -217,6 +221,7 @@ alias glr='git lr'
 alias gp='git pull'
 alias gprev='git switch -'
 alias gr='git restore'
+alias grs='git restore --staged'
 alias gs='git status'
 alias gsh='git show'
 alias gshn='git show --pretty="" --name-only'
@@ -279,3 +284,23 @@ export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap 
 
 # zsh Profiling
 # zprof
+#
+
+# Homebrew (for postgres via mise)
+export PKG_CONFIG_PATH="/opt/homebrew/bin/pkg-config:$(brew --prefix icu4c)/lib/pkgconfig:$(brew --prefix curl)/lib/pkgconfig:$(brew --prefix zlib)/lib/pkgconfig"
+
+##
+##Q Ruby (brew)
+##
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+
+# For compilers to find ruby@3.3 you may need to set:
+export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
+
+# For pkg-config to find ruby@3.3 you may need to set:
+export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/robert/.lmstudio/bin"
+# End of LM Studio CLI section
