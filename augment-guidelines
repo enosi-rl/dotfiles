@@ -1,0 +1,153 @@
+# Go Coding Standards
+
+## 1. Error Handling
+- Wrap errors with context using `errors.Wrap()` from cockroachdb/errors
+- Always check returned errors; use `errors.Is()` and `errors.As()`
+- Error variable names must start with `err` or `Err`
+- No naked returns in functions with named return parameters
+
+## 2. Code Structure
+- Keep cyclomatic complexity under 30
+- Limit functions to 267 lines and 150 statements
+- Add blank lines between unrelated blocks
+- Use range-based loops over C-style loops
+
+## 3. Testing
+- Write table-driven tests with subtests (`t.Run()`)
+- Avoid global state in tests
+- Use testdata directory for test files
+- Run "go test -race" regularly
+- Use "test" not "mock" for test doubles
+- Always put helper functions in a section at EOF
+- Never use testify, always use github.com/alecthomas/assert/v2
+
+## 4. Formatting
+- Use `gofmt` for standard formatting
+- Use tabs for indentation
+- Comments starting with capitals must end with periods
+- No more than one consecutive empty line
+- Blank lines before return, continue and break statements
+
+## 5. Interface & Package Design
+- Keep interfaces small (1-3 methods)
+- Define interfaces at point of use (consumer)
+- Name single-method interfaces as "method + er"
+- Use descriptive package names; avoid "util", "common"
+- Use standard layout (doc.go, package.go, package_test.go)
+
+## 6. Concurrency
+- Use channels to coordinate goroutines
+- Keep critical sections small with sync.Mutex
+- Properly propagate context.Context for cancellation
+- Use select with timeout for blocking operations
+
+## 7. Performance
+- Pre-allocate slices when length is known
+- Use strings.Builder for concatenation
+- Prefer strconv over fmt for simple conversions
+
+## 8. Naming & Conventions
+- Use UK English spelling
+- JSON struct tags: use camelCase
+- For protobuf: use getter methods, check nil before accessing nested fields
+
+## 9. Build Commands
+- Build: `m go:build`
+- Format: `m go:fmt`
+- Lint: `m go:lint`
+- Test: `m go:test`
+
+## 10. Project Structure
+- /cmd - Main apps
+- /internal - Private
+- /pkg - Public
+
+
+## 11. Observability and Signals Usage
+
+- Rationale
+  - We standardise on github.com/enosi/common/pkg/signals for observability: structured logging plus tracing/spans via an Observer.
+  - signals is the primary abstraction used throughout this repo for emitting logs/events and creating spans. Do not log directly with log/slog/zap in application code; use an Observer.
+  - signals integrates with a slog.Logger (for output) and an OpenTelemetry TracerProvider (for spans) and provides level control and span kind semantics.
+
+- Allowed and Forbidden Packages
+  - Allowed: github.com/enosi/common/pkg/signals for observability; slog may be used only to construct the logger passed to signals.Initialize in wiring/bootstrapping code and tests.
+  - Forbidden in application code: direct use of log, log/slog, zap, zerolog, etc. Exception: small standalone scripts/tools under scripts/ or cmd/ that are explicitly marked as utilities may use slog directly, but prefer signals where feasible.
+
+- Usage Rules
+  - Import: `import "github.com/enosi/common/pkg/signals"`.
+  - Obtaining an Observer:
+    - Initialise once at program start via signals.Initialize(ctx, slogLogger, tracerProvider, &signals.HandlerOptions{...}); then store/inject the resulting signals.Observer into constructors. You may also call signals.SetDefault(obs) for libraries that look up a default.
+    - In tests, pass a simple slog logger (e.g., io.Discard) and a nil tracer provider.
+  - HandlerOptions and levels:
+    - Set Level to a constant (e.g., signals.LevelInfo/LevelDebug) or a *signals.LevelVar to change level at runtime (e.g., for a --debug flag).
+    - Set ServiceName and SpanKind (e.g., KindServer, KindInternal, KindProducer, KindConsumer) as appropriate.
+  - Creating spans and logging:
+    - Start a scoped observation with obs.Start(ctx, name) or obs.StartWith(ctx, name, fields...). These return (childObs, ctx, end). Always defer end(err) to record status.
+    - Use obs.Info/Debug/Warn/Error/Event(ctx, msg, fields...) for structured logs. Fields may be passed as alternating key/value pairs or trait.KeyValue values. Keys must be camelCase.
+  - Error handling:
+    - Wrap errors with cockroachdb/errors (errors.Wrap/Wrapf/WithSafeDetails). Use errors.Is/As for checks. Log the error via obs.Error as needed, but prefer returning the wrapped error and letting the caller log at boundaries.
+  - Context propagation and concurrency:
+    - Always pass the ctx returned by Start/StartWith downstream. When launching goroutines, pass ctx and start a new observation inside the goroutine if you need a span/log scope. Honour cancellation.
+
+- Do and Don’t
+  - Do:
+    - Initialise a single Observer in main/wiring and inject it.
+    - Choose the correct SpanKind via obs.WithKind(...) when changing roles (producer/consumer/server/internal).
+    - Use Info/Debug for routine messages; Error for failures; Event for notable state changes.
+  - Don’t:
+    - Call slog.Info/Error directly in feature code; use obs.Info/Error instead.
+    - Create multiple unrelated root observers per process.
+    - Lose the derived ctx from Start/StartWith.
+
+- Code Examples
+  - Initialise and set default observer (CLI or service startup):
+
+    ```go
+    lvl := new(signals.LevelVar); lvl.Set(signals.LevelInfo)
+    logger := slog.New(slog.NewTextHandler(os.Stderr, &slog.HandlerOptions{Level: slog.LevelInfo}))
+    opts := &signals.HandlerOptions{Level: lvl, ServiceName: "esna-settlements-notifier", AddSource: true, SpanKind: signals.KindInternal}
+    obs := signals.Initialize(ctx, logger, tracerProvider, opts)
+    signals.SetDefault(obs)
+    ```
+
+  - Using an injected observer in a handler with structured fields and error wrapping:
+
+    ```go
+    func (h *Handler) Handle(ctx context.Context) (err error) {
+        _, ctx, end := h.obs.StartWith(ctx, "handler.Handle", "id", h.id)
+        defer end(err)
+        h.obs.Info(ctx, "doing work", "id", h.id)
+        if err := doThing(ctx); err != nil { return errors.Wrap(err, "doThing failed") }
+        return nil
+    }
+    ```
+
+  - Test helper (no tracer provider):
+
+    ```go
+    logger := slog.New(slog.NewTextHandler(io.Discard, &slog.HandlerOptions{Level: slog.LevelDebug}))
+    obs := signals.Initialize(t.Context(), logger, nil, &signals.HandlerOptions{Level: signals.LevelDebug})
+    ```
+
+- Migration Guidance
+  - Replace direct slog/log/zap calls with the corresponding Observer methods and pass ctx:
+    - slog.Info("msg", "k", v) -> obs.Info(ctx, "msg", "k", v)
+    - logger.Error("...", "error", err) -> return errors.Wrap(err, "...") and optionally obs.Error(ctx, "...", "error", err.Error()) at the boundary.
+  - Initialise signals once and inject observers rather than using globals; where existing code used a logger, pass an Observer instead.
+  - Pitfalls:
+    - Not deferring end(err) after Start/StartWith (spans won’t close).
+    - Losing the derived ctx from Start/StartWith.
+    - Non-camelCase field keys.
+    - Double-logging and double-wrapping errors.
+  - Tests: prefer io.Discard slog handler and a nil tracer provider; keep output deterministic.
+
+- Enforcement and Review Checklist
+  - No direct imports of log, log/slog, zap, zerolog in application packages; logging goes through signals.Observer.
+  - Observer initialised in wiring with HandlerOptions (Level, ServiceName, SpanKind) and injected.
+  - Spans created with Start/StartWith and end(err) deferred; context propagated.
+  - Structured fields use camelCase; error wrapping via cockroachdb/errors.
+  - Optional linting: enable linters to forbid importing log outside of scripts/, tests, or wiring; consider a custom import-restrictions rule.
+
+- Alignment with Existing Standards
+  - Error handling aligns with Section 1 (cockroachdb/errors) and context propagation aligns with Section 6. Field naming follows Section 8 (camelCase JSON-style keys). Keep interfaces small and inject Observer where needed (Section 5).

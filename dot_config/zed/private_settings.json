@@ -7,6 +7,7 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "use_system_window_tabs": false,
   "context_servers": {
     "hello-world": {
       "env": {},
@@ -25,6 +26,10 @@
     "always_allow_tool_actions": true
   },
 
+  "features": {
+    // Which edit prediction provider to use.
+    "edit_prediction_provider": "copilot"
+  },
   // Agent Panel Font Settings
   "agent_font_size": 13.6,
 
@@ -47,7 +52,7 @@
   },
   // Remove the < > buttons from the tab bar
   "tab_bar": {
-    "show": true,
+    "show": false,
     "show_nav_history_buttons": false
   },
 
@@ -160,8 +165,8 @@
       ]
     }
   },
-
-  "chat_panel": {
-    "dock": "left"
-  }
+  
+  "soft_wrap": "editor_width",
+  // Whether to start a new line with a comment when a previous line is a comment as well.
+  "extend_comment_on_newline": false
 }
