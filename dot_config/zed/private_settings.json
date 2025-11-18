@@ -19,10 +19,10 @@
   },
   "agent": {
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-sonnet-4"
+      "provider": "openai",
+      "model": "gpt-5"
     },
-    "default_profile": "ask",
+    "default_profile": "write",
     "always_allow_tool_actions": true
   },
 
@@ -31,7 +31,7 @@
     "edit_prediction_provider": "copilot"
   },
   // Agent Panel Font Settings
-  "agent_font_size": 13.6,
+  "agent_ui_font_size": 13.6,
 
   // Whether the cursor blinks in the editor.
   "cursor_blink": false,
@@ -78,7 +78,7 @@
   "theme": {
     "mode": "dark",
     "light": "Nord Light",
-    "dark": "Nord"
+    "dark": "Nord Dark"
   },
   "autosave": {
     "after_delay": {

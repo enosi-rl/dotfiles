@@ -195,6 +195,11 @@ MODE_CURSOR_VLINE="$MODE_CURSOR_VISUAL #00ffff"
 ##
 ## Aliases
 ##
+alias ..='cd ..'
+alias 2..='cd ../..'
+alias 3..='cd ../../..'
+alias 4..='cd ../../../..'
+alias 5..='cd ../../../../..'
 alias ag='auggie --model GPT-5 --rules ~/augment-guidelines'
 alias agc='auggie --model GPT-5 --rules ~/augment-guidelines --continue'
 alias cdc='cd ~/code'
@@ -255,6 +260,25 @@ alias -g R='| rg'
 # Originally from https://apple.stackexchange.com/questions/92640/how-do-i-prevent-the-permissions-denied-message-from-being-displayed-when-i-do-a
 find() {
   LC_ALL=C command find "$@" 2>&1 | grep -v -e 'Permission denied' -e 'Operation not permitted'
+}
+
+# various sources reslting from https://news.ycombinator.com/item?id=45670052
+
+# make a directory and cds inside.
+mkcd() {
+  mkdir -p -- "$1" &&
+  cd -- "$1"
+}
+
+# changes to a temporary directory.aka sandbox
+sbox () {
+  cd "$(mktemp -d)"
+  chmod -R 0700 .
+  if [[ $# -eq 1 ]]; then
+    \mkdir -p "$1"
+    cd "$1"
+    chmod -R 0700 .
+  fi
 }
 
 ##
