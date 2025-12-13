@@ -7,16 +7,8 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "use_system_path_prompts": true,
   "use_system_window_tabs": false,
-  "context_servers": {
-    "hello-world": {
-      "env": {},
-      "source": "custom",
-      "enabled": true,
-      "command": "go",
-      "args": ["run", "/Users/robert/proj/mcp/main.go"]
-    }
-  },
   "agent": {
     "default_model": {
       "provider": "openai",
@@ -32,6 +24,8 @@
   },
   // Agent Panel Font Settings
   "agent_ui_font_size": 13.6,
+
+  "colorize_brackets": true,
 
   // Whether the cursor blinks in the editor.
   "cursor_blink": false,
@@ -165,7 +159,7 @@
       ]
     }
   },
-  
+
   "soft_wrap": "editor_width",
   // Whether to start a new line with a comment when a previous line is a comment as well.
   "extend_comment_on_newline": false

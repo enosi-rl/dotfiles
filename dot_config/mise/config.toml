@@ -19,7 +19,7 @@ starship = "latest"
 terraform = "latest"
 terraform-docs = "latest"
 "ubi:cashapp/hermit" = "latest"
-"ubi:jj-vcs/jj" = "latest"
+"ubi:jj-vcs/jj" = "0.35.0"
 "ubi:johnkerl/miller" = { version = "latest", exe = "mlr" }
 "ubi:quarylabs/sqruff" = "latest"
 

@@ -202,6 +202,8 @@ alias 4..='cd ../../../..'
 alias 5..='cd ../../../../..'
 alias ag='auggie --model GPT-5 --rules ~/augment-guidelines'
 alias agc='auggie --model GPT-5 --rules ~/augment-guidelines --continue'
+alias bd='bd --no-daemon'
+alias cd-='cd -'
 alias cdc='cd ~/code'
 alias cdcc='cd ~/code/common/main.common'
 alias cdcea='cd ~/code/esna-exempt-supply-aggregator/main.esas/'
@@ -242,6 +244,8 @@ alias ll='ls -alF'
 alias mv='mv -i'
 alias rm='rm -i'
 alias vim='nvim'
+alias wtmain='cd $(git worktree list | head -1 | cut -d" " -f1)'
+alias wtl='git worktree list'
 alias z='zed'
 alias zd='zed --diff'
 
@@ -281,10 +285,54 @@ sbox () {
   fi
 }
 
+##########################################################################
+# Recursive directory/file listing of present working directory (PWD),
+# with summary count of directories and files.
+# Argument:
+#   Directory of interest,
+#     e.g.: tree /Users/foo/foo_dir
+# Output:
+#   Recursive directory/file listing of named directory,
+#
+# Argument:
+#   Directory of interest, with user-defined level of resursive depth,
+#     e.g.: tree /System/Library 2
+# Output:
+#   Recursive directory/file listing of named directory, stopping at
+#   user defined depth of recursion, e.g. 2
+# From: https://gist.github.com/marshki/8722437ed6d576d5371ab4df53c7ac8d
+# With fix to depth argument handling.
+##########################################################################
+# tree () {
+#     [ -n "$2" ] && local depth=(-maxdepth $2);
+#     find "${1:-.}" ${depth[@]} -print 2> /dev/null | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+# }
+
+tree() {
+    [ -n "$2" ] && local depth=(-maxdepth $2);
+    find "${1:-.}" ${depth[@]} -print 2>/dev/null | \
+    sort | \
+    sed -e '1d' \
+        -e 's;[^/]*/;│   ;g' \
+        -e 's;│   \([^│]\);├── \1;g'
+}
+
+##########################################################################
+# Worktrees
+##########################################################################
+
+# Function to jump to any worktree (needs fzf)
+wtgo() {
+    local worktree=$(git worktree list | fzf | awk '{print $1}')
+    [ -n "$worktree" ] && cd "$worktree"
+}
+
+source ~/scripts/cdwt-function.sh
+
 ##
 ## Enosi
 ##
-export ENOSI_COMMON_DIR=~/code/common
+export ENOSI_COMMON_DIR=~/work/pkgs/common/
 export GOPRIVATE=github.com/enosi
 
 ##
