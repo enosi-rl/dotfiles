@@ -22,15 +22,15 @@ return {
       require('which-key').setup()
 
       -- Document existing key chains
-      require('which-key').register {
-        ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-        ['<leader>f'] = { name = '[F]iles', _ = 'which_key_ignore' },
-        ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-        ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>t'] = { name = '[T]rouble', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+      require('which-key').add {
+        { '<leader>c', group = '[C]ode' },
+        { '<leader>d', group = '[D]ocument' },
+        { '<leader>f', group = '[F]iles' },
+        { '<leader>g', group = '[G]it' },
+        { '<leader>r', group = '[R]ename' },
+        { '<leader>s', group = '[S]earch' },
+        { '<leader>t', group = '[T]rouble' },
+        { '<leader>w', group = '[W]orkspace' },
       }
     end,
   },
@@ -74,20 +74,15 @@ return {
   {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-      icons = false,
-    },
-    -- Configure trouble
+    opts = {},
     config = function()
-      vim.keymap.set('n', '<leader>tx', '<cmd>TroubleToggle<cr>', { silent = true, noremap = true })
-      vim.keymap.set('n', '<leader>tw', '<cmd>TroubleToggle workspace_diagnostics<cr>', { silent = true, noremap = true })
-      vim.keymap.set('n', '<leader>td', '<cmd>TroubleToggle document_diagnostics<cr>', { silent = true, noremap = true })
-      vim.keymap.set('n', '<leader>tl', '<cmd>TroubleToggle loclist<cr>', { silent = true, noremap = true })
-      vim.keymap.set('n', '<leader>tq', '<cmd>TroubleToggle quickfix<cr>', { silent = true, noremap = true })
-      vim.keymap.set('n', 'gR', '<cmd>TroubleToggle lsp_references<cr>', { silent = true, noremap = true })
+      require('trouble').setup {}
+      vim.keymap.set('n', '<leader>tx', '<cmd>Trouble diagnostics toggle<cr>', { silent = true, noremap = true, desc = 'Trouble toggle' })
+      vim.keymap.set('n', '<leader>tw', '<cmd>Trouble diagnostics toggle<cr>', { silent = true, noremap = true, desc = 'Trouble workspace diagnostics' })
+      vim.keymap.set('n', '<leader>td', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { silent = true, noremap = true, desc = 'Trouble document diagnostics' })
+      vim.keymap.set('n', '<leader>tl', '<cmd>Trouble loclist toggle<cr>', { silent = true, noremap = true, desc = 'Trouble loclist' })
+      vim.keymap.set('n', '<leader>tq', '<cmd>Trouble qflist toggle<cr>', { silent = true, noremap = true, desc = 'Trouble quickfix' })
+      vim.keymap.set('n', 'gR', '<cmd>Trouble lsp_references toggle<cr>', { silent = true, noremap = true, desc = 'Trouble LSP references' })
     end,
   },
 

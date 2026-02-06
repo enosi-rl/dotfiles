@@ -1,3 +1,10 @@
+# OPENSPEC:START
+# OpenSpec shell completions configuration
+fpath=("/Users/robert/.zsh/completions" $fpath)
+autoload -Uz compinit
+compinit
+# OPENSPEC:END
+
 # zsh Profiling
 # zmodload zsh/zprof
 
@@ -79,6 +86,7 @@ eval "$(test -x $HERMIT_ROOT_BIN && $HERMIT_ROOT_BIN shell-hooks --print --zsh)"
 ## jujitsu - https://jj-vcs.github.io/jj/latest/install-and-setup/#standard_1
 ##
 # source <(jj util completion zsh)
+source <(COMPLETE=zsh jj)
 
 ##
 ## Neovim
@@ -114,9 +122,10 @@ source ~/bin/wezterm-shell-integration.sh
 # Vi mode
 set -o vi
 
-# Use zed as the editor
-export VISUAL="zed --wait"
-export EDITOR="$VISUAL"
+# Use vim as the editor for git
+export GIT_EDITOR="vim"
+export VISUAL="zed"
+export EDITOR="vim"
 
 ##
 ## History
@@ -244,6 +253,7 @@ alias ll='ls -alF'
 alias mv='mv -i'
 alias rm='rm -i'
 alias vim='nvim'
+alias v='nvim'
 alias wtmain='cd $(git worktree list | head -1 | cut -d" " -f1)'
 alias wtl='git worktree list'
 alias z='zed'
@@ -385,3 +395,12 @@ export PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig"
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/robert/.lmstudio/bin"
 # End of LM Studio CLI section
+
+# Yazi - https://yazi-rs.github.io/docs/quick-start
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}

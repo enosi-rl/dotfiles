@@ -101,17 +101,16 @@ return {
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
       require('telescope').setup {
-
         extensions = {
           ['file_browser'] = {
             initial_mode = 'normal',
           },
         },
-
-        vim.keymap.set('n', '<leader>fb', ':Telescope file_browser<CR>', { desc = '[f]ile [b]rowser' }),
-        -- open file_browser with the path of the current buffer
-        vim.keymap.set('n', '<leader>fB', ':Telescope file_browser path=%:p:h select_buffer=true<CR>', { desc = '[f]ile [B]rowser (current buffer)' }),
       }
+      require('telescope').load_extension 'file_browser'
+      vim.keymap.set('n', '<leader>fb', ':Telescope file_browser<CR>', { desc = '[f]ile [b]rowser' })
+      -- open file_browser with the path of the current buffer
+      vim.keymap.set('n', '<leader>fB', ':Telescope file_browser path=%:p:h select_buffer=true<CR>', { desc = '[f]ile [B]rowser (current buffer)' })
     end,
   },
   -- https://github.com/danielfalk/smart-open.nvim

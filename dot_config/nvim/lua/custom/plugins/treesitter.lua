@@ -3,6 +3,9 @@
 return {
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+    },
     build = ':TSUpdate',
     opts = {
       ensure_installed = {
@@ -14,7 +17,6 @@ return {
         'markdown',
         'markdown_inline',
         'sql',
-        'org',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,

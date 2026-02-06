@@ -38,6 +38,9 @@ adjust-cell-width = -5%
 adjust-cell-height = 10%
 adjust-cursor-height = 10%
 
+# DOESN"T WORK ON AWS - Copy Ghostty's terminfo entry to the remote machine
+shell-integration-features = ssh-terminfo
+
 # window-padding-x = 2
 #
 # # Spacing around the equals sign does not matter.
@@ -60,3 +63,6 @@ adjust-cursor-height = 10%
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 keybind = shift+enter=text:\x1b\r
+
+# Fresh editor
+macos-option-as-alt = left

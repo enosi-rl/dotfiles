@@ -1,15 +1,19 @@
 [tools]
-aws = "latest"
+ast-grep = "latest"
+aws = { version = "latest", symlink_bins = "true" }
 aws-vault = "latest"
 chezmoi = "latest"
 difftastic = "latest"
 duckdb = "latest"
+fd = "latest"
 fzf = "latest"
+gh = "latest"
 go = "latest"
 graphite = "latest"
 jq = "latest"
+kind = "latest"
 lazydocker = "latest"
-neovim = "latest"
+neovim = "0.11.6"
 node = "latest"
 postgres = "16"
 ripgrep = "latest"
@@ -19,9 +23,11 @@ starship = "latest"
 terraform = "latest"
 terraform-docs = "latest"
 "ubi:cashapp/hermit" = "latest"
-"ubi:jj-vcs/jj" = "0.35.0"
+"ubi:jj-vcs/jj" = "0.37.0"
 "ubi:johnkerl/miller" = { version = "latest", exe = "mlr" }
 "ubi:quarylabs/sqruff" = "latest"
+uv = "latest"
+yazi = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["ruby"]

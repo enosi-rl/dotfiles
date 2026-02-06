@@ -18,9 +18,9 @@ return {
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', opts = {} },
 
-      -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
+      -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim', opts = {} },
+      { 'folke/lazydev.nvim', ft = 'lua', opts = {} },
     },
     config = function()
       -- Brief Aside: **What is LSP?**
@@ -144,12 +144,7 @@ return {
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        gopls = {
-          -- Uses the relative install of Go (using Hermit)
-          -- cmd = { './.hermit/go/bin/gopls' },
-          -- Uses the global install of Go (using pkgx)
-          cmd = { '/Users/robert/go/bin/gopls' },
-        },
+        gopls = {},
         graphql = {},
         -- pyright = {},
         -- rust_analyzer = {},
@@ -163,9 +158,6 @@ return {
         --
 
         lua_ls = {
-          -- cmd = {...},
-          -- filetypes { ...},
-          -- capabilities = {},
           settings = {
             Lua = {
               completion = {
